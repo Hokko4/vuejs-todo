@@ -4,9 +4,11 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/essential',
+    'eslint:recommended',
     '@vue/prettier',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'plugin:vue/recommended',
+    'prettier/vue'
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
