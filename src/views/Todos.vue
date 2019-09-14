@@ -1,14 +1,44 @@
 <template>
   <div>
     <form @submit.prevent="addTodo">
-      <input ref="title" type="text" />
-      <button type="submit">登録</button>
+      <div>
+        <input ref="title" type="text" />
+        <button type="submit" class="button is-success">登録</button>
+      </div>
     </form>
-    <ul v-for="(item, index) in todos" :key="index">
+
+    <!-- <ul v-for="(item, index) in todos" :key="index">
       <li><button @click="changeState(item)"></button></li>
       <li>{{ item.id }} {{ item.title }} {{ item.state }}</li>
       <li><button type="submit" @click="removeTodo(item)">削除</button></li>
-    </ul>
+    </ul> -->
+
+    <table class="table is-hoverable container">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Todo</th>
+          <th>Completed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in todos" :key="index">
+          <td>
+            {{ item.id }} <button @click="changeState(item)">状態</button>
+          </td>
+          <td>{{ item.title }} {{ item.state }}</td>
+          <td>
+            <button
+              type="submit"
+              class="button is-danger"
+              @click="removeTodo(item)"
+            >
+              削除
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -30,6 +60,7 @@ export default {
   },
   created() {
     this.todos = Storage.fetch()
+    this.uid = Storage.uid++
   },
   methods: {
     addTodo() {

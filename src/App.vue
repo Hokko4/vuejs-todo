@@ -1,12 +1,19 @@
 <template>
   <div id="app">
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">TodoList localStorage</h1>
+        </div>
+      </div>
+    </section>
     <div id="nav">
-      <router-link to="/">
+      <router-link to="/todos">
         Home
       </router-link>
       |
-      <router-link to="/about">
-        About
+      <router-link to="/logs">
+        Logs
       </router-link>
     </div>
     <router-view />

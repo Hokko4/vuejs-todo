@@ -27,6 +27,12 @@ export default new Router({
       name: 'todos',
       component: () =>
         import(/* webpackChunkName: "todos" */ './views/Todos.vue')
+    },
+    {
+      path: '/logs',
+      name: 'logs',
+      component: () =>
+        import(/* webpackChunkName: "logs" */ './views/TodoLogs.vue')
     }
   ]
 })
