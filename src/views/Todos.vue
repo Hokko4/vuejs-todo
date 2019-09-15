@@ -1,40 +1,33 @@
 <template>
   <div>
     <form @submit.prevent="addTodo">
-      <div>
-        <input ref="title" type="text" />
+      <b-field grouped position="is-centered" class="container">
+        <input v-model="title" type="text" />
         <button type="submit" class="button is-success">登録</button>
-      </div>
+      </b-field>
     </form>
 
-    <!-- <ul v-for="(item, index) in todos" :key="index">
-      <li><button @click="changeState(item)"></button></li>
-      <li>{{ item.id }} {{ item.title }} {{ item.state }}</li>
-      <li><button type="submit" @click="removeTodo(item)">削除</button></li>
-    </ul> -->
-
-    <table class="table is-hoverable container">
+    <table class="table is-hoverable is-fullwidth container">
       <thead>
         <tr>
           <th>ID</th>
           <th>Todo</th>
-          <th>Completed</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in todos" :key="index">
-          <td>
-            {{ item.id }} <button @click="changeState(item)">状態</button>
-          </td>
+          <td>{{ item.id }}</td>
           <td>{{ item.title }} {{ item.state }}</td>
           <td>
-            <button
+            <!-- <button
               type="submit"
               class="button is-danger"
               @click="removeTodo(item)"
             >
               削除
-            </button>
+            </button> -->
+            <b-button type="is-info" @click="changeState(item)">完了</b-button>
           </td>
         </tr>
       </tbody>
@@ -47,7 +40,8 @@ import Storage from '../plugins/storage'
 export default {
   data() {
     return {
-      todos: []
+      todos: [],
+      title: ''
     }
   },
   watch: {
@@ -64,18 +58,23 @@ export default {
   },
   methods: {
     addTodo() {
-      let title = this.$refs.title
-      if (!title.value.length) {
+      // let title = this.$refs.title
+      // if (!title.value.length) {
+      //   return
+      // }
+
+      let title = this.title
+      if (!title) {
         return
       }
 
       console.log(Storage)
       this.todos.push({
         id: Storage.uid++,
-        title: title.value,
+        title: title,
         state: true
       })
-      title.value = ''
+      this.title = ''
     },
     changeState(item) {
       item.state = !item.state
@@ -88,9 +87,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-li {
-  display: inline-block;
-  list-style: none;
-}
-</style>
+<style lang="scss" scoped></style>
