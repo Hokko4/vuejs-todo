@@ -63,7 +63,6 @@ export default {
         return
       }
 
-      console.log(Storage)
       this.todos.push({
         id: Storage.uid++,
         title: title,
