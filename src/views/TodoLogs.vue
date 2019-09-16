@@ -19,6 +19,7 @@
 
 <script>
 import Storage from '../plugins/storage'
+// import { mapActions } from 'vuex'
 export default {
   data() {
     return {
