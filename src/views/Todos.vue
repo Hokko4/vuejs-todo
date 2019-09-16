@@ -2,31 +2,24 @@
   <div>
     <form @submit.prevent="addTodo">
       <b-field grouped position="is-centered" class="container">
-        <input v-model="title" type="text" />
-        <button type="submit" class="button is-success">登録</button>
+        <b-input v-model="title" size="is-medium" class=""></b-input>
+        <button type="submit" class="button is-success is-medium">登録</button>
       </b-field>
     </form>
 
     <table class="table is-hoverable is-fullwidth container">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Todo</th>
-          <th></th>
+          <th width="20%">ID</th>
+          <th width="60%">Todo</th>
+          <th width="20%"></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in todos" :key="index">
+        <tr v-for="item in activeTodos" :key="item.id">
           <td>{{ item.id }}</td>
-          <td>{{ item.title }} {{ item.state }}</td>
+          <td>{{ item.title }}</td>
           <td>
-            <!-- <button
-              type="submit"
-              class="button is-danger"
-              @click="removeTodo(item)"
-            >
-              削除
-            </button> -->
             <b-button type="is-info" @click="changeState(item)">完了</b-button>
           </td>
         </tr>
@@ -44,6 +37,13 @@ export default {
       title: ''
     }
   },
+  computed: {
+    activeTodos: function() {
+      return this.todos.filter(function(todo) {
+        return todo.state
+      })
+    }
+  },
   watch: {
     todos: {
       handler(todos) {
@@ -58,11 +58,6 @@ export default {
   },
   methods: {
     addTodo() {
-      // let title = this.$refs.title
-      // if (!title.value.length) {
-      //   return
-      // }
-
       let title = this.title
       if (!title) {
         return

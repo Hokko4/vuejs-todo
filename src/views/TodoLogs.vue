@@ -1,11 +1,19 @@
 <template>
   <div>
-    <b-table :data="todos" :columns="columns" class="container"></b-table>
-    <!-- <table>
+    <table class="table is-hoverable is-fullwidth container">
       <thead>
-        <th></th>
+        <tr>
+          <th width="20%">ID</th>
+          <th width="80%">Todo</th>
+        </tr>
       </thead>
-    </table> -->
+      <tbody>
+        <tr v-for="item in doneTodos" :key="item.id">
+          <td>{{ item.id }}</td>
+          <td>{{ item.title }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -14,24 +22,18 @@ import Storage from '../plugins/storage'
 export default {
   data() {
     return {
-      todos: Storage.fetch(),
-      columns: [
-        {
-          field: 'id',
-          label: 'ID'
-        },
-        {
-          field: 'title',
-          label: 'Todo'
-        }
-      ]
+      todos: Storage.fetch()
+    }
+  },
+  computed: {
+    doneTodos: function() {
+      return this.todos.filter(function(todo) {
+        return !todo.state
+      })
     }
   },
   created() {
     this.todos = Storage.fetch()
   }
-  // methods: {
-
-  // }
 }
 </script>
