@@ -28,7 +28,6 @@ export default new Vuex.Store({
     },
 
     changeState(state, id) {
-      console.log(state.todos)
       state.todos[id].state = false
     }
   },
@@ -36,8 +35,6 @@ export default new Vuex.Store({
   actions: {
     fetchTodos({ commit }) {
       const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-      console.log('fetchtodos')
-      console.log(todos)
 
       commit('setTodos', { todos })
     },
@@ -50,12 +47,9 @@ export default new Vuex.Store({
       }
 
       const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-      console.log(todos)
       todos.push(todo)
-      console.log(todos)
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
-      console.log('setitem')
 
       commit('saveTodos', { todo })
     },
@@ -63,16 +57,11 @@ export default new Vuex.Store({
     changeState({ commit }, id) {
       const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
 
-      console.log('changestate内でIDは' + id)
       todos.forEach(element => {
         if (element.id === id) {
           element.state = false
-          console.log(element.id + '=' + element.state)
         }
       })
-      console.log('changestate')
-      console.log(id)
-      console.log(todos)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
 
       commit('changeState', id)

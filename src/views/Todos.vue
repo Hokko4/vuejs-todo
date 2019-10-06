@@ -46,8 +46,6 @@ export default {
       })
     },
     activeTodos3() {
-      console.log('computed')
-      console.log(this.todos)
       if (this.todos.length === 0) return []
       return this.todos.filter(function(todo) {
         return todo.state
@@ -56,7 +54,6 @@ export default {
     ...mapGetters(['todos'])
   },
   created() {
-    console.log('created')
     this.fetchTodos()
   },
   methods: {
@@ -66,12 +63,9 @@ export default {
         return
       }
 
-      console.log('addtodo')
-
       this.saveTodos(title)
     },
     changeState(id) {
-      console.log('ボタン押した')
       this.changeState(id)
     },
     removeTodo(item) {

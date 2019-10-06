@@ -23,8 +23,6 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     doneTodos: function() {
-      console.log('logs内のcomputed')
-      console.log(this.todos)
       if (this.todos.length === 0) return []
       return this.todos.filter(function(todo) {
         return !todo.state
