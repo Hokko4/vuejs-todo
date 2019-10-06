@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="addTodo">
+    <form @submit.prevent="addTodo2">
       <b-field grouped position="is-centered" class="container">
         <b-input v-model="title" size="is-medium" class=""></b-input>
         <button type="submit" class="button is-success is-medium">登録</button>
@@ -16,11 +16,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in activeTodos" :key="item.id">
+        <tr v-for="item in activeTodos3" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.title }}</td>
           <td>
-            <b-button type="is-info" @click="changeState(item)">完了</b-button>
+            <b-button type="is-info" @click="changeState(item.id)"
+              >完了</b-button
+            >
           </td>
         </tr>
       </tbody>
@@ -30,31 +32,50 @@
 
 <script>
 import Storage from '../plugins/storage'
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
-      todos: [],
+      // todos: [],
       title: ''
     }
   },
   computed: {
-    activeTodos: function() {
+    // activeTodos: function() {
+    //   return this.todos.filter(function(todo) {
+    //     return todo.state
+    //   })
+    // },
+    activeTodos2: function() {
       return this.todos.filter(function(todo) {
         return todo.state
       })
-    }
+    },
+    activeTodos3() {
+      console.log('computed')
+      console.log(this.todos)
+      if (this.todos.length === 0) return []
+      return this.todos.filter(function(todo) {
+        return todo.state
+      })
+    },
+    ...mapGetters(['todos'])
   },
   watch: {
-    todos: {
-      handler(todos) {
-        Storage.save(todos)
-      },
-      deep: true
-    }
+    // todos: {
+    //   handler(todos) {
+    //     Storage.save(todos)
+    //   },
+    //   deep: true
+    // }
   },
   created() {
-    this.todos = Storage.fetch()
-    this.uid = Storage.uid++
+    // this.todos = Storage.fetch()
+    console.log('created')
+    this.fetchTodos()
+    // console.log(this.$state.todos)
+    // ...mapGetters(['todos'])
   },
   methods: {
     addTodo() {
@@ -70,13 +91,31 @@ export default {
       })
       this.title = ''
     },
-    changeState(item) {
-      item.state = !item.state
+    addTodo2() {
+      let title = this.title
+      if (!title) {
+        return
+      }
+
+      // const todo = {
+      //   id: Storage.uid++,
+      //   title: title,
+      //   state: true
+      // }
+      console.log('addtodo')
+
+      this.saveTodos(title)
+    },
+    changeState(id) {
+      // item.state = !item.state
+      console.log('ボタン押した')
+      this.changeState(id)
     },
     removeTodo(item) {
       let index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
-    }
+    },
+    ...mapActions(['fetchTodos', 'saveTodos', 'changeState'])
   }
 }
 </script>

@@ -18,23 +18,28 @@
 </template>
 
 <script>
-import Storage from '../plugins/storage'
-// import { mapActions } from 'vuex'
+// import Storage from '../plugins/storage'
+import { mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      todos: Storage.fetch()
-    }
-  },
+  // data() {
+  //   return {
+  //     todos: Storage.fetch()
+  //   }
+  // },
   computed: {
     doneTodos: function() {
+      console.log('logs内のcomputed')
+      console.log(this.todos)
+      if (this.todos.length === 0) return []
       return this.todos.filter(function(todo) {
         return !todo.state
       })
-    }
-  },
-  created() {
-    this.todos = Storage.fetch()
+    },
+    ...mapGetters(['todos'])
   }
+  // created() {
+  //   this.todos = Storage.fetch()
+  // }
 }
 </script>

@@ -9,7 +9,7 @@
     </section>
     <div id="nav">
       <router-link to="/todos">
-        Home
+        List
       </router-link>
       |
       <router-link to="/logs">

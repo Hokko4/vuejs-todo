@@ -7,32 +7,81 @@ const STORAGE_KEY = 'vuejs-todo'
 
 export default new Vuex.Store({
   state: {
-    todos: null,
-    uid: 0,
-    state: true
+    todos: [],
+    uid: 0
   },
+
+  getters: {
+    todos: state => state.todos,
+    uid: state => state.uid
+  },
+
   mutations: {
     setTodos(state, { todos }) {
+      // if (state.uid !== null) return
+      state.todos = []
+
+      // state.todos.push(todos)
       state.todos = todos
-      state.uid = todos.length
+      state.uid = state.todos.length++
     },
-    changeState(state) {
-      state.state = !state.state
+
+    saveTodos(state, { todo }) {
+      state.todos.push(todo)
+      // state.uid++
+    },
+
+    changeState(state, id) {
+      // state.state = !state.state
+      console.log(state.todos)
+      state.todos[id].state = false
     }
   },
+
   actions: {
     fetchTodos({ commit }) {
       const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+      console.log('fetchtodos')
+      console.log(todos)
 
       commit('setTodos', { todos })
     },
-    saveTodos({ commit }, { todo }) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(todo))
 
-      commit('saveTodos')
+    saveTodos({ commit }, title) {
+      const todo = {
+        id: this.state.uid++,
+        title: title,
+        state: true
+      }
+
+      // const todos = Object.assign(this.state.todos, todo)
+      const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+      console.log(todos)
+      todos.push(todo)
+      console.log(todos)
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+      console.log('setitem')
+
+      commit('saveTodos', { todo })
     },
-    changeState({ commit }) {
-      commit('changeState')
+
+    changeState({ commit }, id) {
+      const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+
+      console.log('changestate内でIDは' + id)
+      todos.forEach(element => {
+        if (element.id === id) {
+          element.state = false
+          console.log(element.id + '=' + element.state)
+        }
+      })
+      console.log('changestate')
+      console.log(id)
+      console.log(todos)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+
+      commit('changeState', id)
     }
   }
 })
