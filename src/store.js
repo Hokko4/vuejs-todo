@@ -20,7 +20,7 @@ export default new Vuex.Store({
       state.todos = []
 
       state.todos = todos
-      state.uid = state.todos.length++
+      state.uid = state.todos.length
     },
 
     saveTodos(state, { todo }) {
@@ -48,7 +48,6 @@ export default new Vuex.Store({
 
       const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
       todos.push(todo)
-
       localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
 
       commit('saveTodos', { todo })

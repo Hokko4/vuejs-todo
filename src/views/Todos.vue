@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="addTodo2">
+    <form @submit.prevent="addTodo">
       <b-field grouped position="is-centered" class="container">
         <b-input v-model="title" size="is-medium" class=""></b-input>
         <button type="submit" class="button is-success is-medium">登録</button>
@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in activeTodos3" :key="item.id">
+        <tr v-for="item in activeTodos" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.title }}</td>
           <td>
@@ -40,12 +40,7 @@ export default {
     }
   },
   computed: {
-    activeTodos2: function() {
-      return this.todos.filter(function(todo) {
-        return todo.state
-      })
-    },
-    activeTodos3() {
+    activeTodos() {
       if (this.todos.length === 0) return []
       return this.todos.filter(function(todo) {
         return todo.state
@@ -57,7 +52,7 @@ export default {
     this.fetchTodos()
   },
   methods: {
-    addTodo2() {
+    addTodo() {
       let title = this.title
       if (!title) {
         return
@@ -65,9 +60,11 @@ export default {
 
       this.saveTodos(title)
     },
+
     changeState(id) {
       this.changeState(id)
     },
+
     removeTodo(item) {
       let index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
