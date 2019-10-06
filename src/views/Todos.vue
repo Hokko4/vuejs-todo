@@ -31,22 +31,15 @@
 </template>
 
 <script>
-import Storage from '../plugins/storage'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
-      // todos: [],
       title: ''
     }
   },
   computed: {
-    // activeTodos: function() {
-    //   return this.todos.filter(function(todo) {
-    //     return todo.state
-    //   })
-    // },
     activeTodos2: function() {
       return this.todos.filter(function(todo) {
         return todo.state
@@ -62,52 +55,22 @@ export default {
     },
     ...mapGetters(['todos'])
   },
-  watch: {
-    // todos: {
-    //   handler(todos) {
-    //     Storage.save(todos)
-    //   },
-    //   deep: true
-    // }
-  },
   created() {
-    // this.todos = Storage.fetch()
     console.log('created')
     this.fetchTodos()
-    // console.log(this.$state.todos)
-    // ...mapGetters(['todos'])
   },
   methods: {
-    addTodo() {
-      let title = this.title
-      if (!title) {
-        return
-      }
-
-      this.todos.push({
-        id: Storage.uid++,
-        title: title,
-        state: true
-      })
-      this.title = ''
-    },
     addTodo2() {
       let title = this.title
       if (!title) {
         return
       }
 
-      // const todo = {
-      //   id: Storage.uid++,
-      //   title: title,
-      //   state: true
-      // }
       console.log('addtodo')
 
       this.saveTodos(title)
     },
     changeState(id) {
-      // item.state = !item.state
       console.log('ボタン押した')
       this.changeState(id)
     },

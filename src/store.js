@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import { isTemplateElement } from '@babel/types'
 
 Vue.use(Vuex)
 const STORAGE_KEY = 'vuejs-todo'
@@ -18,21 +17,17 @@ export default new Vuex.Store({
 
   mutations: {
     setTodos(state, { todos }) {
-      // if (state.uid !== null) return
       state.todos = []
 
-      // state.todos.push(todos)
       state.todos = todos
       state.uid = state.todos.length++
     },
 
     saveTodos(state, { todo }) {
       state.todos.push(todo)
-      // state.uid++
     },
 
     changeState(state, id) {
-      // state.state = !state.state
       console.log(state.todos)
       state.todos[id].state = false
     }
@@ -54,7 +49,6 @@ export default new Vuex.Store({
         state: true
       }
 
-      // const todos = Object.assign(this.state.todos, todo)
       const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
       console.log(todos)
       todos.push(todo)

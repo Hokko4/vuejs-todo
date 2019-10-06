@@ -18,15 +18,9 @@
 </template>
 
 <script>
-// import Storage from '../plugins/storage'
 import { mapGetters } from 'vuex'
 
 export default {
-  // data() {
-  //   return {
-  //     todos: Storage.fetch()
-  //   }
-  // },
   computed: {
     doneTodos: function() {
       console.log('logs内のcomputed')
@@ -38,8 +32,5 @@ export default {
     },
     ...mapGetters(['todos'])
   }
-  // created() {
-  //   this.todos = Storage.fetch()
-  // }
 }
 </script>
