@@ -1,39 +1,7 @@
 # vuejs-todo
 
-## Project setup
-```
-yarn install
-```
+[![Netlify Status](https://api.netlify.com/api/v1/badges/28fa713b-e68a-413a-8ed7-6742c4d51331/deploy-status)](https://app.netlify.com/sites/hokko4-vuejs-todo/deploys)
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## localStorageを使用します
 
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your end-to-end tests
-```
-yarn run test:e2e
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[Netlify](https://hokko4-vuejs-todo.netlify.com/)
